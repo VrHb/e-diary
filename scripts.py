@@ -43,9 +43,10 @@ def get_schoolkid(name):
     try:
         schoolkid = Schoolkid.objects.get(full_name__contains=name)
         return schoolkid
-    except Schoolkid.DoesNotExist:
-        return "Введи правильно имя и фамилию. Как пример: Иван Васильев"
-
+    except:
+        raise Schoolkid.DoesNotExist(
+            "Введи полное имя и фамилию. Как пример: Иван Васильев"
+        )
 
 def fix_marks(schoolkid):
     marks = Mark.objects.all()
@@ -82,4 +83,3 @@ def create_commendation(schoolkid, subject):
         )
     except IndexError:
         return "Введи правильное название предмета с большой буквы"
-
